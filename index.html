@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milk Products - Order Now</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('https://desimilk.com/wp-content/uploads/2021/09/banner1.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            line-height: 1.7;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            z-index: -1;
+        }
+
+        header {
+            font-size: 30px;
+            background: linear-gradient(45deg, #ff6600, #ffcc33);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Telugu', sans-serif;
+            font-size: 20px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            background: linear-gradient(45deg, #ffcc33, #ff6600);
+            border-radius: 6px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            background: linear-gradient(45deg, #ffcc33, #ff6600);
+            border-radius: 6px;
+        }
+
+        .order-heading {
+            font-family: 'Verdana', sans-serif;
+            font-size: 16px;
+            background: linear-gradient(45deg, #32CD32, #7FFF00);
+            color: #ffffff;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .product-card {
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card button {
+            padding: 10px 20px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card button:hover {
+            background-color: #ffcc33;
+        }
+
+        .product-card.active {
+            border: 3px solid #ff6600;
+        }
+
+        /* Trendy Button Styling */
+        button {
+            padding: 15px 30px;
+
+            align-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #b5e155, #42ea2b); /* Gradient */
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+             ;
+
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #feb47b, #ff7e5f); /* Hover Gradient */
+            transform: translateY(-3px); /* Slight lift effect */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Input field styles */
+       /* Customer Section Styles */
+#customer-section {
+    text-align: center;
+    margin:50px auto;
+    max-width:400px;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ff5722;
+}
+
+/* Heading for the customer section */
+#customer-section h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Field Styles */
+#customer-section input[type="text"],
+#customer-section input[type="tel"] {
+    padding:4px 10px;
+    width:60%;
+    margin: 10px 0;
+    border:3px solid #ccc;
+    border-radius:0px;
+    font-size: 18px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Input focus effect */
+#customer-section input[type="text"]:focus,
+#customer-section input[type="tel"]:focus {
+    border-color: #ff5722;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+}
+
+/* Placeholder Styles */
+#customer-section input::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+/* Label styling */
+#customer-section label {
+    display: block;
+    font-size: 18px;
+    color: #555;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* Add a button if needed */
+#customer-section button {
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    background-color: #ff5722;
+    color: white;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+#customer-section button:hover {
+    background-color: #e64a19;
+}
+
+
+  /* Style for the overall quantity selection container */
+.quantity-selection {
+    text-align: center;
+    margin: 50px auto;
+    font-family: 'Arial', sans-serif;
+    max-width:300px;
+}
+
+h3 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Style for the quantity control (buttons and input) */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ff5722;
+}
+
+.quantity-btn {
+    font-size: 20px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 39px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    margin: 0 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Left Button (Decrement) */
+.left {
+    background-color: #ff5a5a;
+    color: #fff;
+}
+
+.left:hover {
+    background-color: #ff2d2d;
+    transform: scale(1.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.left:active {
+    transform: scale(1);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Right Button (Increment) */
+.right {
+    background-color: #36d1dc;
+    color: #fff;
+}
+
+.right:hover {
+    background-color: #00b5e2;
+    transform: scale(1.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.right:active {
+    transform: scale(1);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Input Field */
+#quantity {
+    width: 60px;
+    padding: 0px;
+    font-size: 21px;
+    border: 0px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    text-align: center;
+    margin: 0 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Price Display */
+#priceDisplay {
+    font-size:21px;
+    font-weight: bold;
+    color: #ff5722;
+    margin-top: 10px;
+}
+
+
+
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 15px;
+            background: linear-gradient(45deg, #ffcc33, #ff6600);
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>నవీన్ డైరీ ఫామ్</h1>
+        <h2>పల్లెపాలు</h2>
+    </header>
+
+    <div class="order-heading">Order Fresh Milk Online with Door Delivery</div>
+
+    <form action="/order" method="POST">
+
+        <!-- Product Selection -->
+        <div class="product-selection">
+            <h2>Choose Your Product:</h2>
+            <div class="product-card" data-product="buffalo" data-price="80">
+                <h4>Buffalo Milk</h4>
+                <p>₹80 per Liter</p>
+                <button type="button" class="select-product-btn">Select</button>
+            </div>
+
+            <div class="product-card" data-product="cow" data-price="100">
+                <h4>Cow Milk</h4>
+                <p>₹100 per Liter</p>
+                <button type="button" class="select-product-btn">Select</button>
+            </div>
+        </div>
+
+        <!-- Quantity Selection -->
+<div class="quantity-selection">
+    <h2>How many Liter's :</h2>
+    <div class="quantity-control">
+        <button type="button" id="decreaseBtn" class="quantity-btn left">-1</button>
+        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+        <button type="button" id="increaseBtn" class="quantity-btn right">+1</button>
+    </div>
+      <div ><h2>Total Price</h2><span id="priceDisplay">₹80</span></div>
+</div>
+
+
+    </div>
+
+    <p id="selectedProductDisplay" class="selected-product">Select a product first</p>
+</div>
+
+
+      <!-- Customer Details Section -->
+<div id="customer-section" class="customer-details">
+    <h3>Enter Your Details</h3>
+
+    <label for="name">
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+    </label><br>
+
+    <label for="address">
+        <input type="text" id="address" name="address" placeholder="Your Address" required>
+    </label><br>
+
+    <label for="number">
+        <input type="tel" id="number" name="number" placeholder="Your Phone Number" required>
+    </label><br>
+</div>
+
+
+        <!-- Hidden Field for Selected Product -->
+        <input type="hidden" id="selectedProduct" name="product" required>
+
+        <!-- Order Button -->
+        <button type="submit">Place Order</button>
+    </form>
+
+    <!-- Footer -->
+    <footer>
+
+
+    <p>Contact Us:</p>
+    <p>
+        <!-- Phone Contact -->
+        <a href="tel:+917661823999" style="color: blue; text-decoration: none;">
+            <button style="background-color: #4285F4; padding: 15px; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; margin-left: 10px;">
+                <img src="https://img.icons8.com/ios/50/000000/phone.png" alt="Phone" style="width: 20px; height: 20px; vertical-align: middle;">
+            </button>
+        </a>
+
+        <!-- WhatsApp Contact -->
+        <a href="https://wa.me/919398491466" style="color: green; text-decoration: none;">
+            <button style="background-color: #25D366; padding: 15px; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; margin-left: 10px;">
+                <img src="https://img.icons8.com/ios/50/000000/whatsapp.png" alt="WhatsApp" style="width: 20px; height: 20px; vertical-align: middle;">
+            </button>
+        </a>
+
+        <!-- Facebook Contact -->
+        <a href="https://www.facebook.com/naveen.thota.944?mibextid=ZbWKwL" style="color: blue; text-decoration: none;">
+            <button style="background-color: #3b5998; padding: 15px; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; margin-left: 10px;">
+                <img src="https://img.icons8.com/ios/50/000000/facebook.png" alt="Facebook" style="width: 20px; height: 20px; vertical-align: middle;">
+            </button>
+        </a>
+
+        <!-- Instagram Contact -->
+        <a href="https://www.facebook.com/naveen.thota.944?mibextid=ZbWKwL" style="color: red; text-decoration: none;">
+            <button style="background-color: #E1306C; padding: 15px; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; margin-left: 10px;">
+                <img src="https://img.icons8.com/ios/50/000000/instagram.png" alt="Instagram" style="width: 20px; height: 20px; vertical-align: middle;">
+            </button>
+
+             <p>&copy; 2024 Naveen Dairy Farm. All rights reserved.</p>
+        </a>
+
+
+</footer>
+
+
+
+
+
+
+       <script>
+        // Product selection handling
+        const productCards = document.querySelectorAll('.product-card');
+        const selectedProductInput = document.getElementById('selectedProduct');
+        const priceDisplay = document.getElementById('priceDisplay');
+        const quantityInput = document.getElementById('quantity');
+        let selectedProduct = null;
+        let pricePerLiter = 80; // Default price
+
+        // Set initial price display
+        priceDisplay.innerText = `₹${pricePerLiter}`;
+
+        // Add click event to each product card
+        productCards.forEach(card => {
+            card.querySelector('button').addEventListener('click', () => {
+                // Remove active class from all cards
+                productCards.forEach(c => c.classList.remove('active'));
+
+                // Add active class to the selected product
+                card.classList.add('active');
+
+                // Set the selected product
+                selectedProduct = card.getAttribute('data-product');
+                selectedProductInput.value = selectedProduct;
+
+                // Get the price of the selected product
+                pricePerLiter = parseFloat(card.getAttribute('data-price'));
+
+                // Update the price display
+                priceDisplay.innerText = `₹${pricePerLiter * quantityInput.value}`;
+            });
+        });
+
+        // Handling quantity increase and decrease
+        const increaseBtn = document.getElementById('increaseBtn');
+        const decreaseBtn = document.getElementById('decreaseBtn');
+
+        increaseBtn.addEventListener('click', () => {
+            let currentQuantity = parseInt(quantityInput.value);
+            quantityInput.value = currentQuantity + 1;
+            updatePrice();
+        });
+
+        decreaseBtn.addEventListener('click', () => {
+            let currentQuantity = parseInt(quantityInput.value);
+            if (currentQuantity > 1) {
+                quantityInput.value = currentQuantity - 1;
+                updatePrice();
+            }
+        });
+
+        // Update the price based on the selected product and quantity
+        function updatePrice() {
+            const quantity = parseInt(quantityInput.value);
+            if (selectedProduct) {
+                priceDisplay.innerText = `₹${pricePerLiter * quantity}`;
+            }
+        }
+
+        // Handling form submission
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+            if (!selectedProduct) {
+                alert('Please select a product.');
+                event.preventDefault();
+            } else if (parseInt(quantityInput.value) < 1) {
+                alert('Please enter a valid quantity.');
+                event.preventDefault();
+            }
+        });
+
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:colour="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+
+    <!-- Add Google Font (Playfair Display) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 0;
+            height: 100vh;
+            background-color: #f0f0f0;
+            opacity: 0; /* Start with an invisible page */
+            animation: fadeIn 1s forwards; /* Animation to fade in */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .confirmation-message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            font-size: 16px;
+            border-radius: 10px;
+            margin: 10px 0;
+            opacity: 0; /* Start with the message hidden */
+            animation: slideUp 0.5s ease-out 1s forwards; /* Slide-up and fade-in */
+            width: 90%;
+            max-width: 600px;
+        }
+
+        /* "Naveen Dairy Farm" text styling with animated gradient */
+        .loading-text {
+            font-size: 30px;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 20px;
+            position: relative;
+            background: linear-gradient(45deg, #ff6f61, #3498db, #f39c12, #8e44ad, #2ecc71); /* Gradient colors */
+            background-clip: text;
+            color: transparent;
+            animation: gradientAnimation 4s infinite linear; /* Animation for gradient shift */
+            letter-spacing: 2px; /* Adding letter spacing for a modern look */
+            font-family: 'Playfair Display', serif; /* Playfair Display font for elegant look */
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Loading dots styling */
+        .loading-dots {
+            font-size: 80px;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: 20px;
+            position: relative;
+            font-family: 'Poppins', sans-serif; /* Consistent font style */
+        }
+
+        .loading-dots span {
+            display: inline-block;
+            animation: bounce 0.5s infinite alternate;
+        }
+
+        /* Assign different colors to each dot */
+        .loading-dots span:nth-child(1) {
+            animation-delay: 0s;
+            color: #ff6f61; /* Coral */
+        }
+        .loading-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+            color: #3498db; /* Blue */
+        }
+        .loading-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+            color: #f906ff; /* Orange */
+        }
+        .loading-dots span:nth-child(4) {
+            animation-delay: 0.6s;
+            color: #f6cc04; /* Orange */
+        }
+        .loading-dots span:nth-child(5) {
+            animation-delay: 0.7s;
+            color: #1af815; /* Orange */
+        }
+        .loading-dots span:nth-child(6) {
+            animation-delay: 0.8s;
+            color: #0cfff9; /* Orange */
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-20px); /* Adjust the bounce distance */
+            }
+        }
+
+        /* Animation definitions */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Confirmation Message -->
+    <div class="confirmation-message">
+        <h2>Order Confirmed</h2>
+        <p>Thank you for your order, <strong>{{ name }}</strong>.</p>
+        <p>Here are your details:</p>
+        <p>Address: {{ address }}</p>
+        <p>Phone: {{ phone }}</p>
+        <p>Milk Type: {{ milk_type }}</p>
+        <p>Quantity: {{ liters }} Liters</p>
+        <p>Total Amount: ₹{{ total_amount }}</p>
+    </div>
+
+    <!-- "Naveen Dairy Farm" name with animated gradient -->
+    <div class="loading-text">
+        Naveen Dairy Farm
+    </div>
+
+    <!-- Loading dots -->
+    <div class="loading-dots">
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+        <span>.</span>
+    </div>
+
+    <!-- WhatsApp auto-send function -->
+    <script>
+        // Voice message function
+        function playThankYouVoice() {
+            var msg = new SpeechSynthesisUtterance();
+            msg.text = "Thank you for your order";
+            msg.lang = 'en-US';
+            window.speechSynthesis.speak(msg);
+        }
+
+        // Play the voice message when the page loads
+        window.onload = function() {
+            playThankYouVoice();
+
+            // Send order details to the product owner after 4 seconds
+            setTimeout(function() {
+                var productOwnerPhoneNumber = '93998491466'; // Product owner's phone number
+                var message = 'New Order Details:\n' +
+                              'Name: {{ name }}\n' +
+                              'Address: {{ address }}\n' +
+                              'Phone: {{ phone }}\n' +
+                              'Milk Type: {{ milk_type }}\n' +
+                              'Quantity: {{ liters }} Liters\n' +
+                              'Total Amount: ₹{{ total_amount }}'; // Order details message
+
+                var whatsappLink = 'https://wa.me/' + productOwnerPhoneNumber + '?text=' + encodeURIComponent(message);
+
+                // Automatically redirect to WhatsApp for the product owner
+                window.location.href = whatsappLink;
+            }, 4000); // 4-second delay
+        }
+    </script>
+
+</body>
+</html>
